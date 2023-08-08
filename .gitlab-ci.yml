@@ -1,5 +1,5 @@
 stages:
-  - package
+  - containerize
 
 image: python:3.7
 
@@ -7,9 +7,9 @@ variables:
   DOCKER_REGISTRY: "docker.zigpos.de" # for pulling docker images
   REPO_GROUP: "zp-btscanner"
 
-arm64 arch:
-  stage: package
-  extends: .build_docker_image_template
+arm64:
+  stage: containerize
+  image: docker.zigpos.de/docker-ci:2021.1
   tags:
     - docker-arm64
   before_script:
@@ -25,6 +25,5 @@ arm64 arch:
     - 'docker push "$IMAGE_NAME"'
   only:
     - /^release-.*$/
-    - /^prerelease-.*$/
 
 
