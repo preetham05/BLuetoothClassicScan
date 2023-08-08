@@ -8,7 +8,7 @@ variables:
   REPO_GROUP: "zp-btscanner"
 
 amd64:
-  stage: containerize
+  stage: package
   image: docker.zigpos.de/docker-ci:2021.1
   tags:
     - docker
