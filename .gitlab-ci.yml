@@ -1,5 +1,7 @@
 stages:
-  - containerize
+  - package
+
+image: python:3.7
 
 variables:
   DOCKER_REGISTRY: "docker.zigpos.de" # for pulling docker images
