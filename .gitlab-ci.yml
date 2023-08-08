@@ -7,16 +7,16 @@ variables:
   DOCKER_REGISTRY: "docker.zigpos.de" # for pulling docker images
   REPO_GROUP: "zp-btscanner"
 
-amd64:
+arm64 arch:
   stage: package
-  image: docker.zigpos.de/docker-ci:2021.1
+  extends: .build_docker_image_template
   tags:
-    - docker
+    - docker-arm64
   before_script:
     - export DOCKER_BUILDKIT=1
     - 'BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")'
     - 'VERSION=${CI_COMMIT_REF_NAME//release-/""}'
-    - 'IMAGE_NAME="$DOCKER_REGISTRY/$REPO_GROUP"-amd64'
+    - 'IMAGE_NAME="$DOCKER_REGISTRY/$REPO_GROUP:$VERSION"-arm64'
     - "ARCH=$(uname -m)"
   script:
     - "echo Build+Push $IMAGE_NAME for $ARCH"
@@ -25,4 +25,6 @@ amd64:
     - 'docker push "$IMAGE_NAME"'
   only:
     - /^release-.*$/
+    - /^prerelease-.*$/
+
 
