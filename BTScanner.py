@@ -8,6 +8,8 @@ import logging
 import bluetooth
 import uuid
 import re
+import socket
+
 
 baseURL='http://zigpos-gateway331/rtls_api/rest'
 
@@ -15,6 +17,7 @@ BT_Device = {}
 ScanData = []
 address_base = 0x70B3
 anchor_address = hex(address_base<<48 | (uuid.getnode()))
+print('HexValue:'+ anchor_address)
 anchor_address = int(anchor_address,16)
 print(anchor_address)
 class MyDiscoverer(bluetooth.DeviceDiscoverer):
@@ -78,15 +81,38 @@ class MyDiscoverer(bluetooth.DeviceDiscoverer):
             logging.warning(response_code)
             response_message = r.content
             if response_code == 200:
-                logging.warning("The address %s passed the update", address)
+                logging.warning("The address %s sent the beacon", address)
 
             else:
-                logging.warning("The address %s failed during the update", address)
+                logging.warning("The address %s failed to send the beacon", address)
     def inquiry_complete(self):
         logging.warning("Scanning completed")
 
         self.done = True
         BT_Device.clear()
+
+anchor_data = {
+                "address": anchor_address,
+                "networkType": "BLUETOOTH",
+                "appRole": "ANCHOR",
+                "activated": True,
+                "connected": True,
+                "customName": socket.gethostname()
+                }
+print(json.dumps(anchor_data))
+
+r = requests.put(url=baseURL + '/devices/',
+                            data= json.dumps(anchor_data),
+                            headers={'Content-Type': 'application/json'})
+print(r.text)
+response_code = r.status_code
+logging.warning(response_code)
+response_message = r.content
+if response_code == 200:
+    logging.warning("The address %s added to the devices ", anchor_address)
+
+else:
+    logging.warning("The address %s failed to be added to the devices ", anchor_address)
 
 
 d = MyDiscoverer()
