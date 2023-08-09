@@ -7,7 +7,6 @@ variables:
 
 arm64 arch:
   stage: containerize
-  extends: .build_docker_image_template
   tags:
     - docker-arm64
   before_script:
