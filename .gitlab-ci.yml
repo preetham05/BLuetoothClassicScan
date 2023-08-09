@@ -26,6 +26,3 @@ build raspi docker image:
   only:
     - /^release-.*$/
     - /^prerelease-.*$/
-
-
-
