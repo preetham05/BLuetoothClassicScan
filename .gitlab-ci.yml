@@ -3,7 +3,7 @@ stages:
 
 variables:
   DOCKER_REGISTRY: "hub.zigpos.com"
-  REPO_GROUP: "zpBluetoothClassicScanner"
+  REPO_GROUP: "zp-grafana"
   DOCKER_CLI_EXPERIMENTAL: "enabled"
 
 Docker (pre-)release arm64:
