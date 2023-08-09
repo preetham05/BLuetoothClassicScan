@@ -7,6 +7,7 @@ variables:
 
 arm64 arch:
   stage: containerize
+  image: hub.zigpos.com/ci/docker-ci:2022.1
   tags:
     - docker-arm64
   before_script:
