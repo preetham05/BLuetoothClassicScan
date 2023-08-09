@@ -1,8 +1,8 @@
 stages:
   - docker
 
-variables:
-  DOCKER_REGISTRY: "docker.zigpos.de"
+  variables:
+  DOCKER_REGISTRY: "hub.zigpos.com"
   REPO_GROUP: "zpBluetoothClassicScanner"
   DOCKER_CLI_EXPERIMENTAL: "enabled"
 
