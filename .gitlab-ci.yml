@@ -1,5 +1,5 @@
 stages:
-  - docker
+  - deploy
 
 variables:
   DOCKER_REGISTRY: "hub.zigpos.com"
@@ -7,7 +7,7 @@ variables:
   DOCKER_CLI_EXPERIMENTAL: "enabled"
 
 Docker (pre-)release arm64:
-  stage: docker
+  stage: deploy
   image: hub.zigpos.com/ci/docker-ci:2022.1
   tags:
     - docker-arm64
