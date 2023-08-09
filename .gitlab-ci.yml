@@ -1,29 +1,31 @@
 stages:
-  - containerize
-
-image: python:3.7
+  - docker
 
 variables:
-  DOCKER_REGISTRY: "docker.zigpos.de" # for pulling docker images
-  REPO_GROUP: "zp-btscanner"
+  DOCKER_REGISTRY: "docker.zigpos.de"
+  REPO_GROUP: "zpBluetoothClassicScanner"
+  DOCKER_CLI_EXPERIMENTAL: "enabled"
 
-arm64:
-  stage: containerize
-  image: docker.zigpos.de/docker-ci:2021.1
+build raspi docker image:
+  image: docker.zigpos.de/docker-ci-arm64
   tags:
     - docker-arm64
-  before_script:
-    - export DOCKER_BUILDKIT=1
-    - 'BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")'
-    - 'VERSION=${CI_COMMIT_REF_NAME//release-/""}'
-    - 'IMAGE_NAME="$DOCKER_REGISTRY/$REPO_GROUP:$VERSION"-arm64'
-    - "ARCH=$(uname -m)"
+  services:
+    - docker.zigpos.de/dind-ci-service-arm64
+  stage: docker
   script:
-    - "echo Build+Push $IMAGE_NAME for $ARCH"
+    - 'cd DB-Docker'
+    - 'BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")'
+    - 'COMMIT_REF_NAME=$CI_COMMIT_REF_NAME'
+    - 'VERSION=${COMMIT_REF_NAME//release-/""}${DOCKER_TAG_SUFFIX}'
+    - 'IMAGE_NAME="$DOCKER_REGISTRY/$REPO_GROUP:$VERSION"'
+    - 'echo $IMAGE_NAME'
     - 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" "$DOCKER_REGISTRY"'
-    - 'docker build --build-arg BUILD_DATE=$BUILD_DATE --build-arg VERSION=$VERSION -t "$IMAGE_NAME" .'
-    - 'docker push "$IMAGE_NAME"'
+    - 'docker build --build-arg BUILD_DATE=$BUILD_DATE --build-arg VERSION=$VERSION -t "$IMAGE_NAME"-arm64 .'
+    - 'docker push "$IMAGE_NAME"-arm64'
   only:
     - /^release-.*$/
+    - /^prerelease-.*$/
+
 
 
