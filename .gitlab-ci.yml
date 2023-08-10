@@ -6,7 +6,7 @@ variables:
   REPO_GROUP: "zpBTScanner"
   DOCKER_CLI_EXPERIMENTAL: "enabled"
 
-Docker (pre-)release arm64:
+Docker release arm64:
   stage: containerize
   image: hub.zigpos.com/ci/docker-ci:2022.1
   tags:
