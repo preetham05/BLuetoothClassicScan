@@ -2,10 +2,11 @@ stages:
   - containerize
 
 variables:
-  DOCKER_REGISTRY: "hub.zigpos.com/dev" # for pulling docker images
-  REPO_GROUP: "zp-BtScanner"
+  DOCKER_REGISTRY: "hub.zigpos.com/dev"
+  REPO_GROUP: "zpBTScanner"
+  DOCKER_CLI_EXPERIMENTAL: "enabled"
 
-arm64 arch:
+Docker release arm64:
   stage: containerize
   image: hub.zigpos.com/ci/docker-ci:2022.1
   tags:
