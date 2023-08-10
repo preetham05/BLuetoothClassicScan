@@ -3,7 +3,7 @@ stages:
 
 variables:
   DOCKER_REGISTRY: "hub.zigpos.com/dev"
-  REPO_GROUP: "zpBTScanner"
+  REPO_GROUP: "zp_bt_scanner"
   DOCKER_CLI_EXPERIMENTAL: "enabled"
 
 Docker release arm64:
@@ -15,9 +15,9 @@ Docker release arm64:
     - "echo otha"
     - export DOCKER_BUILDKIT=1
     - 'BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")'
-    - 'VERSION=${commit_ref_name//release-/""}'
+    - 'VERSION=${commit_ref_name}'
     - 'echo "Releasing Version "$VERSION'
-    - 'IMAGE_NAME="$DOCKER_REGISTRY/$REPO_GROUP:$VERSION"-arm64'
+    - 'IMAGE_NAME="$DOCKER_REGISTRY/$REPO_GROUP"-arm64'
     - "ARCH=$(uname -m)"
     - "echo Build+Push $IMAGE_NAME for $ARCH"
     - 'docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD" "$DOCKER_REGISTRY"'
