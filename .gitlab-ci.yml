@@ -5,6 +5,7 @@ variables:
   DOCKER_REGISTRY: "hub.zigpos.com/dev"
   REPO_GROUP: "zpBTScanner"
   DOCKER_CLI_EXPERIMENTAL: "enabled"
+  VERSION: 0.0.1
 
 Docker release arm64:
   stage: containerize
@@ -14,7 +15,6 @@ Docker release arm64:
   before_script:
     - export DOCKER_BUILDKIT=1
     - 'BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")'
-    - 'VERSION=${CI_COMMIT_REF_NAME}'
     - 'IMAGE_NAME="$DOCKER_REGISTRY/$REPO_GROUP:$VERSION"-arm64'
     - "ARCH=$(uname -m)"
   script:
