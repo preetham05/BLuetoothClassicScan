@@ -20,6 +20,10 @@ anchor_address = hex(address_base<<48 | (uuid.getnode()))
 print('HexValue:'+ anchor_address)
 anchor_address = int(anchor_address,16)
 print(anchor_address)
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.INFO,
+    datefmt='%Y-%m-%d %H:%M:%S')
 class MyDiscoverer(bluetooth.DeviceDiscoverer):
 
     def pre_inquiry(self):
@@ -70,21 +74,21 @@ class MyDiscoverer(bluetooth.DeviceDiscoverer):
                         "rssi": rssi}
             # print(json.dumps(data))
             ScanData.append(data)
-            print(json.dumps(ScanData))
-            print(baseURL + '/bluetooth/1/anchor/' + str(anchor_address) + '/scanresults/')
+
+            # print(baseURL + '/bluetooth/1/anchor/' + str(anchor_address) + '/scanresults/')
 
             r = requests.post(url=baseURL + '/bluetooth/1/anchor/' + str(anchor_address) + '/scanresults/',
                             data= json.dumps(ScanData),
                             headers={'Content-Type': 'application/json'})
             print(r.text)
             response_code = r.status_code
-            logging.warning(response_code)
+            logging.info(response_code)
             response_message = r.content
             if response_code == 200:
-                logging.warning("The address %s sent the beacon", address)
+                logging.info("The address %s sent the beacon", address)
 
             else:
-                logging.warning("The address %s failed to send the beacon", address)
+                logging.info("The address %s failed to send the beacon", address)
     def inquiry_complete(self):
         logging.warning("Scanning completed")
 
