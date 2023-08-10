@@ -7,4 +7,9 @@ variables:
   DOCKER_CLI_EXPERIMENTAL: "enabled"
 
 Docker release arm64:
-  echo 'hello'
+  image: hub.zigpos.com/ci/docker-ci:2022.1
+  tags:
+    - docker-arm64
+  script:
+    - "echo otha"
+
