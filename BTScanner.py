@@ -88,7 +88,7 @@ class MyDiscoverer(bluetooth.DeviceDiscoverer):
                 logging.info("The address %s sent the beacon", address)
 
             else:
-                logging.info("The address %s failed to send the beacon", address)
+                logging.warning("The address %s failed to send the beacon", address)
     def inquiry_complete(self):
         logging.warning("Scanning completed")
 
