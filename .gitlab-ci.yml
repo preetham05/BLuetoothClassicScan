@@ -16,7 +16,6 @@ Docker release arm64:
     - "echo otha"
     - export DOCKER_BUILDKIT=1
     - 'BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")'
-    - 'COMMIT_REF_NAME=$CI_COMMIT_REF_NAME'
     - 'VERSION=${COMMIT_REF_NAME##release-}'
     - 'IMAGE_NAME="$DOCKER_REGISTRY/$REPO_GROUP:$VERSION"'
     - 'echo $IMAGE_NAME'
