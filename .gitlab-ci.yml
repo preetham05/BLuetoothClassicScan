@@ -15,12 +15,11 @@ Docker release arm64:
     - "echo otha"
     - export DOCKER_BUILDKIT=1
     - 'BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")'
-    - 'VERSION=${CI_COMMIT_REF_NAME//release-/""}'
-    - 'echo "Releasing Version "$VERSION'
+    - 'COMMIT_REF_NAME=$CI_COMMIT_REF_NAME'
+    - 'VERSION=${COMMIT_REF_NAME##release-}'
     - 'IMAGE_NAME="$DOCKER_HUB_DEV_REPOSITORY/$REPO_GROUP:$VERSION"'
-    - "ARCH=$(uname -m)"
-    - "echo Build+Push $IMAGE_NAME for $ARCH"
-    - 'docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD" "$DOCKER_REGISTRY"'
+    - 'echo $IMAGE_NAME'
+    - 'docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD" "$DOCKER_HUB_REPOSITORY"'
     - 'docker build --build-arg BUILD_DATE=$BUILD_DATE --build-arg "GF_INSTALL_IMAGE_RENDERER_PLUGIN=true" --build-arg VERSION=$VERSION -t "$IMAGE_NAME"-arm64 .'
     - 'docker push "$IMAGE_NAME"-arm64'
 
