@@ -23,6 +23,3 @@ Docker release arm64:
     - 'docker build --build-arg BUILD_DATE=$BUILD_DATE --build-arg "GF_INSTALL_IMAGE_RENDERER_PLUGIN=true" --build-arg VERSION=$VERSION -t "$IMAGE_NAME"-arm64 .'
     - 'docker push "$IMAGE_NAME"-arm64'
 
-  only:
-    - /^release-.*$/
-    - /^prerelease-.*$/
