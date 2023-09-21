@@ -14,8 +14,6 @@ import socket
 
 
 BT_Device = {}
-ScanData = []
-address_base = 0x70B3
 retry_count = 0
 
 logging.basicConfig(
