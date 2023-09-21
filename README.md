@@ -1,6 +1,6 @@
-# ZP_BluetoothClassic_Scanner
+# BluetoothClassic_Scanner
 
-
+This Application scans for all classic Bluetooth devices like Headsets, Multimedia systems and computes its RSSI values. TODO: Compute its position using proximity API
 
 ## Getting started
 
